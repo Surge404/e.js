@@ -1,0 +1,41 @@
+const exp =require("express");
+const app = exp();
+const port = 3000;
+
+
+function Middleware1(req, res, next){
+    const a = req.headers.userid;
+    const b = req.headers.userpassword;
+    if(a!="tanmay"||b!="password123"){
+        res.status(411).send("Wrong Authentication Details buddy");
+    }
+    else{
+        console.log("MiddleWare1 Check SUccesfukk");
+        next();
+    }
+}
+
+
+function Middleware2(req, res, next){
+    const c = req.query.kidID1;
+    const d = req.query.kidID2;
+    if(c!=1||d!=2){
+        res.status(411).send("Wrong Kidney Details buddy");
+    }
+    else{
+        console.log("MiddleWare2 Check SUccesfukk");
+        next();
+    }
+}
+
+
+
+app.get("/kidneystatus", Middleware1, Middleware2, function(req, res){
+    res.status(200).send("Good Boy, you have good kidneys");
+});
+app.put("/newkidney",Middleware1, Middleware2, function(req,res){
+//Perform the Kidney CHange logic here
+res.status(200).send("Kidney cHanged Succesfully")
+});
+
+app.listen(port);
