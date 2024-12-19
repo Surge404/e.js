@@ -1,0 +1,28 @@
+const exp =require("express");
+const app = exp();
+const port = 3000;
+
+app.get("/authentication", function (req, res){
+    const a = req.headers.userid;
+    const b = req.headers.userpassword;
+    const c = req.query.kidID1;
+    const d = req.query.kidID2;
+    if(a=="tanmay"&&b=="password123"){
+        console.log("Password is correct boomer");
+    }
+    else{
+        res.status(403).json({
+            msg: "Invalid Authentication Details"
+        });
+        return;
+    }
+    if(c==1&&d==2){
+        res.status(200).json({msg: "Good Kidney"});
+    }
+    else{
+        res.status(403).json({mes: "Sell your iphone and just key a new kidney bruhhh"});
+    }
+
+});
+
+app.listen(port);
